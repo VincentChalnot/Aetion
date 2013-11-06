@@ -11,4 +11,6 @@ $world = new Entity();
 
 $building = new Aetion\Entity\Building($world);
 
-var_dump($building);
+$polygon = geoPHP::load('POLYGON ((30 10 0, 10 20 0, 20 40 0, 40 40 10, 30 10 10))', 'wkt');
+
+var_dump($building, json_encode($polygon->asText()));
