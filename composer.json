@@ -1,0 +1,20 @@
+{
+	"name": "VincentChalnot/Aetion",
+	"license": "GPL-2 or New-BSD",
+	"type": "framework",
+	"description": "Aetion is a Procedural World Generation Framework meant to output generated environment and objects to a 3D engine through various format",
+	"homepage": "https://github.com/VincentChalnot/Aetion",
+	"autoload": {
+		"psr-0": {"": "lib/"}
+	},
+	"require": {
+		"php": ">=5.4",
+		"symfony/class-loader": "2.3.*",
+		"phayes/geophp": "dev-master"
+	},
+	"authors": [
+		{
+			"name": "Vincent Chalnot"
+		}
+	]
+}
