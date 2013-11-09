@@ -3,8 +3,19 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5df63f17edb187559f10d89ac119e1a0",
+    "hash": "778223478218f8ce39c9feb84b3bf01d",
     "packages": [
+        {
+            "name": "mrdoob/threejs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrdoob/three.js.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-10-22 00:36:46"
+        },
         {
             "name": "phayes/geophp",
             "version": "dev-master",
@@ -37,6 +48,17 @@
             "description": "GeoPHP is a open-source native PHP library for doing geometry operations. It is written entirely in PHP and can therefore run on shared hosts. It can read and write a wide variety of formats: WKT (including EWKT), WKB (including EWKB), GeoJSON, KML, GPX, GeoRSS). It works with all Simple-Feature geometries (Point, LineString, Polygon, GeometryCollection etc.) and can be used to get centroids, bounding-boxes, area, and a wide variety of other useful information.",
             "homepage": "https://github.com/phayes/geoPHP",
             "time": "2013-07-16 23:42:19"
+        },
+        {
+            "name": "schteppe/cannonjs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schteppe/cannon.js.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-08-12 06:05:00"
         },
         {
             "name": "symfony/class-loader",
@@ -97,7 +119,9 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "phayes/geophp": 20
+        "phayes/geophp": 20,
+        "mrdoob/threejs": 20,
+        "schteppe/cannonjs": 20
     },
     "platform": {
         "php": ">=5.4"

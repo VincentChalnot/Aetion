@@ -7,10 +7,36 @@
 	"autoload": {
 		"psr-0": {"": "lib/"}
 	},
+	"repositories": [{
+			"type": "package",
+			"package": {
+				"name": "mrdoob/threejs",
+				"version": "dev-master",
+				"source": {
+					"url": "https://github.com/mrdoob/three.js.git",
+					"type": "git",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "schteppe/cannonjs",
+				"version": "dev-master",
+				"source": {
+					"url": "https://github.com/schteppe/cannon.js.git",
+					"type": "git",
+					"reference": "master"
+				}
+			}
+		}],
 	"require": {
 		"php": ">=5.4",
 		"symfony/class-loader": "2.3.*",
-		"phayes/geophp": "dev-master"
+		"phayes/geophp": "dev-master",
+		"mrdoob/threejs": "dev-master",
+		"schteppe/cannonjs": "dev-master"
 	},
 	"authors": [
 		{
