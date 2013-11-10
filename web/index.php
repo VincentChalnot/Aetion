@@ -6,9 +6,11 @@
 		<link type="text/css" rel="stylesheet" href="/css/main.css">
         <script src="/threejs/build/three.min.js"></script>
         <script src="/cannonjs/build/cannon.min.js"></script>
+		<script src="/js/csg.js"></script>
+		<script src="/js/ThreeCSG.js"></script>
         <script src="/js/PointerLockControls.js"></script>
 		<script src="/aetion/Core/Aetion.js"></script>
-		<?php foreach(['Area', 'Building', 'Door', 'Entity', 'Environment', 'Hall', 'Item', 'Level', 'Opening', 'Room', 'Volume', 'Window'] as $file): ?>
+		<?php foreach (['Building', 'Door', 'Entity', 'Environment', 'Hall', 'Item', 'Level', 'Opening', 'Room', 'Window'] as $file): ?>
 			<script src="/aetion/Entity/<?php echo $file ?>.js"></script>
 		<?php endforeach ?>
     </head>
@@ -24,8 +26,8 @@
         </div>
 
         <script>
-			
-			var sphereShape, sphereBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
+
+			var playerShape, playerBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
@@ -61,16 +63,16 @@
 				physicsMaterial = new CANNON.Material("slipperyMaterial");
 				var physicsContactMaterial = new CANNON.ContactMaterial(physicsMaterial,
 						physicsMaterial,
-						0, // friction coefficient
+						0.2, // friction coefficient
 						0.4  // restitution
 						);
 				// We must add the contact materials to the world
 				world.addContactMaterial(physicsContactMaterial);
-							
+
 				playerMaterial = new CANNON.Material("playerMaterial");
 				var playerContactMaterial = new CANNON.ContactMaterial(playerMaterial,
 						playerMaterial,
-						1, // friction coefficient
+						0.9, // friction coefficient
 						0.4  // restitution
 						);
 				// We must add the contact materials to the world
@@ -80,8 +82,7 @@
 				var mass = 70, radius = 1.3;
 				playerShape = new CANNON.Sphere(radius);
 				playerBody = new CANNON.RigidBody(mass, playerShape, playerMaterial);
-				playerBody.position.set(0, 5, 0);
-				playerBody.linearDamping = 0.9;
+				playerBody.position.set(5, 2, 15);
 				world.add(playerBody);
 
 				// Create a plane
@@ -144,11 +145,11 @@
 
 				window.addEventListener('resize', onWindowResize, false);
 
-
-				var buildingGeometry = new THREE.PlaneGeometry(300, 300, 50, 50);
-				buildingGeometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-				var building = new Aetion.Building(buildingGeometry, scene);
-
+				var buildingMatrix = new THREE.Matrix4();
+				buildingMatrix.makeTranslation(0, 5, 0);
+				var building = new Aetion.Building(buildingMatrix, new THREE.CubeGeometry(15, 10, 20));
+				var buildingMesh = building.getMesh();
+				scene.add(buildingMesh);
 			}
 
 			function onWindowResize() {
@@ -191,7 +192,7 @@
 				var vector = targetVec;
 				targetVec.set(0, 0, 1);
 				projector.unprojectVector(vector, camera);
-				var ray = new THREE.Ray(sphereBody.position, vector.sub(sphereBody.position).normalize());
+				var ray = new THREE.Ray(playerBody.position, vector.sub(playerBody.position).normalize());
 				targetVec.x = ray.direction.x;
 				targetVec.y = ray.direction.y;
 				targetVec.z = ray.direction.z;
@@ -201,9 +202,9 @@
 				if (!controls.enabled) {
 					return;
 				}
-				var x = sphereBody.position.x;
-				var y = sphereBody.position.y;
-				var z = sphereBody.position.z;
+				var x = playerBody.position.x;
+				var y = playerBody.position.y;
+				var z = playerBody.position.z;
 				var ballBody = new CANNON.RigidBody(30, ballShape);
 				var ballMesh = new THREE.Mesh(ballGeometry, material);
 				world.add(ballBody);
@@ -218,9 +219,9 @@
 						shootDirection.z * shootVelo);
 
 				// Move the ball outside the player sphere
-				x += shootDirection.x * (sphereShape.radius * 1.02 + ballShape.radius);
-				y += shootDirection.y * (sphereShape.radius * 1.02 + ballShape.radius);
-				z += shootDirection.z * (sphereShape.radius * 1.02 + ballShape.radius);
+				x += shootDirection.x * (playerShape.radius * 1.02 + ballShape.radius);
+				y += shootDirection.y * (playerShape.radius * 1.02 + ballShape.radius);
+				z += shootDirection.z * (playerShape.radius * 1.02 + ballShape.radius);
 				ballBody.position.set(x, y, z);
 				ballMesh.position.set(x, y, z);
 			});

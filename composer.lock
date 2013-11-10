@@ -3,8 +3,19 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "778223478218f8ce39c9feb84b3bf01d",
+    "hash": "6f8c2bf9f2811ebb444f656248640da9",
     "packages": [
+        {
+            "name": "evanw/csgjs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evanw/csg.js.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2012-08-20 02:46:59"
+        },
         {
             "name": "mrdoob/threejs",
             "version": "dev-master",
@@ -121,7 +132,8 @@
     "stability-flags": {
         "phayes/geophp": 20,
         "mrdoob/threejs": 20,
-        "schteppe/cannonjs": 20
+        "schteppe/cannonjs": 20,
+        "evanw/csgjs": 20
     },
     "platform": {
         "php": ">=5.4"

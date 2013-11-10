@@ -3,6 +3,6 @@
  *
  * @author vincent
  */
-Aetion.Door = function(boundaries, parent, seed) {
-	Aetion.Opening.call(this, boundaries, parent, seed);
+Aetion.Door = function(position, boundaries, parent, seed) {
+	Aetion.Opening.call(this, position, boundaries, parent, seed);
 };

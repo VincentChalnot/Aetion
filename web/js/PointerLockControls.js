@@ -16,7 +16,7 @@ THREE.controlParameters = {
 var PointerLockControls = function(camera, cannonBody) {
 
 	var eyeYPos = 1.8; // eyes are 2 meters above the ground
-	var velocityFactor = 0.16;
+	var velocityFactor = 0.8;
 	var jumpVelocity = 8;
 	var scope = this;
 
@@ -54,6 +54,7 @@ var PointerLockControls = function(camera, cannonBody) {
 	});
 
 	var velocity = cannonBody.velocity;
+	playerBody.angularDamping = 0.99999;
 
 	var PI_2 = Math.PI / 2;
 
@@ -127,7 +128,7 @@ var PointerLockControls = function(camera, cannonBody) {
 			return;
 
 		delta *= 0.1;
-		var inertia = 0.5;
+		var inertia = 0.1;
 		
 		// Quaternion to convert velocity with right orientation
 		quat.setFromEuler(new THREE.Euler(pitchObject.rotation.x, yawObject.rotation.y, 0, "XYZ"));
@@ -152,10 +153,17 @@ var PointerLockControls = function(camera, cannonBody) {
 
 		// Convert velocity to world coordinates
 		inputVelocity.applyQuaternion(quat);
-
-		// Add to the object
-		velocity.x += inputVelocity.x;
-		velocity.z += inputVelocity.z;
+		
+		if(velocity.y > -0.01 && velocity.y < 0.01){ // not in a middle of a jump
+			cannonBody.linearDamping = 0.9;
+			// Add to the object
+			velocity.x += inputVelocity.x;
+			velocity.z += inputVelocity.z;
+		} else {
+			cannonBody.linearDamping = 0.01;
+			velocity.x += inputVelocity.x * 0.1;
+			velocity.z += inputVelocity.z * 0.1;
+		}
 
 		cannonBody.position.copy(yawObject.position);
 	};

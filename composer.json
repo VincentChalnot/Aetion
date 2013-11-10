@@ -30,13 +30,26 @@
 					"reference": "master"
 				}
 			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "evanw/csgjs",
+				"version": "dev-master",
+				"source": {
+					"url": "https://github.com/evanw/csg.js.git",
+					"type": "git",
+					"reference": "master"
+				}
+			}
 		}],
 	"require": {
 		"php": ">=5.4",
 		"symfony/class-loader": "2.3.*",
 		"phayes/geophp": "dev-master",
 		"mrdoob/threejs": "dev-master",
-		"schteppe/cannonjs": "dev-master"
+		"schteppe/cannonjs": "dev-master",
+		"evanw/csgjs": "dev-master"
 	},
 	"authors": [
 		{

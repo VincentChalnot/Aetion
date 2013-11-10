@@ -3,27 +3,61 @@
  *
  * @author vincent
  */
-Aetion.Entity = function(boundaries, parent, seed) {
-	
-	this.init = function(boundaries, parent, seed){
+Aetion.Entity = function(position, boundaries, parent, seed) {
+
+	this.position = new THREE.Matrix4();
+	this.parent = undefined;
+	this.id = undefined;
+	this.children = [];
+	this.mesh = undefined;
+	this.defaultMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
+
+	this.init = function(position, boundaries, parent, seed) {
 		this.id = Aetion.registerEntity(this);
-		parent.add(this);
-		this.parent = parent;
-		this.children = [];
+		if (parent) {
+			parent.add(this);
+			this.parent = parent;
+		}
 		this.boundaries = boundaries;
-		if(seed){
+		this.position = position;
+		if (seed) {
 			this.seed = seed;
 		} else {
 			this.seed = Aetion.getGlobalSeed();
 		}
-		this.seed;
-		this.context;
 	};
-	
-	this.add = function (child) {
+
+	this.add = function(child) {
 		this.children.push(child);
 	};
-	
-	this.init(boundaries, parent, seed);
+
+	this.getMesh = function() {
+		if (this.mesh) {
+			return this.mesh;
+		}
+		this.mesh = this.createMesh();
+		if(!this.mesh){
+			this.mesh = new THREE.Mesh();
+		}
+		this.mesh.castShadow = true;
+		this.mesh.receiveShadow = true;
+		this.mesh.applyMatrix(this.position);
+		var childMesh = null;
+		for (i in this.children) {
+			childMesh = this.children[i].getMesh();
+			if(childMesh){
+				this.mesh.add(childMesh);
+			}
+		}
+		return this.mesh;
+	};
+
+	this.createMesh = function() {
+		var mesh = new THREE.Mesh(this.boundaries, this.defaultMaterial);
+		//mesh.
+		return mesh;
+	};
+
+	this.init(position, boundaries, parent, seed);
 };
 

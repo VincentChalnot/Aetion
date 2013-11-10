@@ -4,5 +4,5 @@
  * @author vincent
  */
 Aetion.Environment = function (){
-	Aetion.Area.call(this, boundaries, parent, seed);
+	Aetion.Entity.call(this, boundaries, parent, seed);
 };

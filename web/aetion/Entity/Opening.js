@@ -3,6 +3,14 @@
  *
  * @author vincent
  */
-Aetion.Opening = function(boundaries, parent, seed) {
-	Aetion.Volume.call(this, boundaries, parent, seed);
+Aetion.Opening = function(position, boundaries, parent, seed) {
+	Aetion.Entity.call(this, position, boundaries, parent, seed);
+	
+	this.createMesh = function() {
+		return;
+	};
+	
+	this.getHole = function(){
+		return new ThreeBSP(this.boundaries, this.position);
+	};
 };
