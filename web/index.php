@@ -13,6 +13,7 @@
 		<?php foreach (['Building', 'Door', 'Entity', 'Environment', 'Hall', 'Item', 'Level', 'Opening', 'Room', 'Window'] as $file): ?>
 			<script src="/aetion/Entity/<?php echo $file ?>.js"></script>
 		<?php endforeach ?>
+		<script src="/aetion/Sequencer/LevelSequencer.js"></script>
     </head>
     <body>
         <div id="blocker">
@@ -28,6 +29,7 @@
         <script>
 
 			var playerShape, playerBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
+			var playerPosition = {x: 0, y: 2, z: 3};
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
@@ -82,7 +84,7 @@
 				var mass = 70, radius = 1.3;
 				playerShape = new CANNON.Sphere(radius);
 				playerBody = new CANNON.RigidBody(mass, playerShape, playerMaterial);
-				playerBody.position.set(5, 2, 15);
+				playerBody.position.set(playerPosition.x, playerPosition.y, playerPosition.z);
 				world.add(playerBody);
 
 				// Create a plane
@@ -95,7 +97,7 @@
 			function init() {
 
 				camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
+				
 				scene = new THREE.Scene();
 				scene.fog = new THREE.Fog(0x000000, 0, 500);
 

@@ -11,6 +11,8 @@ Aetion.Entity = function(position, boundaries, parent, seed) {
 	this.children = [];
 	this.mesh = undefined;
 	this.defaultMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
+	this.castShadow = true;
+	this.receiveShadow = true;
 
 	this.init = function(position, boundaries, parent, seed) {
 		this.id = Aetion.registerEntity(this);
@@ -39,8 +41,8 @@ Aetion.Entity = function(position, boundaries, parent, seed) {
 		if(!this.mesh){
 			this.mesh = new THREE.Mesh();
 		}
-		this.mesh.castShadow = true;
-		this.mesh.receiveShadow = true;
+		this.mesh.castShadow = this.castShadow;
+		this.mesh.receiveShadow = this.receiveShadow;
 		this.mesh.applyMatrix(this.position);
 		var childMesh = null;
 		for (i in this.children) {
@@ -53,9 +55,7 @@ Aetion.Entity = function(position, boundaries, parent, seed) {
 	};
 
 	this.createMesh = function() {
-		var mesh = new THREE.Mesh(this.boundaries, this.defaultMaterial);
-		//mesh.
-		return mesh;
+		return new THREE.Mesh(this.boundaries, this.defaultMaterial);
 	};
 
 	this.init(position, boundaries, parent, seed);
