@@ -9,10 +9,12 @@
 		<script src="/js/csg.js"></script>
 		<script src="/js/ThreeCSG.js"></script>
         <script src="/js/PointerLockControls.js"></script>
+		<script src="/js/MersenneTwister.js"></script>
 		<script src="/aetion/Core/Aetion.js"></script>
 		<?php foreach (['Building', 'Door', 'Entity', 'Environment', 'Hall', 'Item', 'Level', 'Opening', 'Room', 'Window'] as $file): ?>
 			<script src="/aetion/Entity/<?php echo $file ?>.js"></script>
 		<?php endforeach ?>
+		<script src="/aetion/Sequencer/Sequencer.js"></script>
 		<script src="/aetion/Sequencer/LevelSequencer.js"></script>
     </head>
     <body>
@@ -29,7 +31,7 @@
         <script>
 
 			var playerShape, playerBody, world, physicsMaterial, walls = [], balls = [], ballMeshes = [], boxes = [], boxMeshes = [];
-			var playerPosition = {x: 0, y: 2, z: 3};
+			var playerPosition = {x: 15, y: 2, z: 15};
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
@@ -101,11 +103,11 @@
 				scene = new THREE.Scene();
 				scene.fog = new THREE.Fog(0x000000, 0, 500);
 
-				var ambient = new THREE.AmbientLight(0x111111);
+				var ambient = new THREE.AmbientLight(0x333330);
 				scene.add(ambient);
 
-				light = new THREE.SpotLight(0xffffff);
-				light.position.set(10, 30, 20);
+				light = new THREE.SpotLight(0xffffee);
+				light.position.set(30, 20, 30);
 				light.target.position.set(0, 0, 0);
 				if (true) {
 					light.castShadow = true;
@@ -148,8 +150,8 @@
 				window.addEventListener('resize', onWindowResize, false);
 
 				var buildingMatrix = new THREE.Matrix4();
-				buildingMatrix.makeTranslation(0, 5, 0);
-				var building = new Aetion.Building(buildingMatrix, new THREE.CubeGeometry(15, 10, 20));
+				buildingMatrix.makeTranslation(0, 50, 0);
+				var building = new Aetion.Building(buildingMatrix, new THREE.CubeGeometry(15, 100, 20));
 				var buildingMesh = building.getMesh();
 				scene.add(buildingMesh);
 			}

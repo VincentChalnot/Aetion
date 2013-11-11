@@ -8,6 +8,7 @@ Aetion.Level = function(position, boundaries, parent, seed, isGroundLevel) {
 	
 	this.wallDepth = 0.4;
 	this.isGroundLevel = isGroundLevel;
+	this.levelGeometry = null;
 
 	this.init = function() {
 		if(this.isGroundLevel){
@@ -32,8 +33,11 @@ Aetion.Level = function(position, boundaries, parent, seed, isGroundLevel) {
 	};
 
 	this.getLevelGeometry = function() {
+		if(this.levelGeometry){
+			return this.levelGeometry;
+		}
 		var sequencer = new Aetion.LevelSequencer(this);
-		return sequencer.generateGeometry();
+		return this.levelGeometry = sequencer.generateGeometry();
 	};
 	
 	this.setGroundLevel = function(bool) {
