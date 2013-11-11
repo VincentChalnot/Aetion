@@ -17,11 +17,11 @@ Aetion.Building = function(position, boundaries, parent, seed) {
 		levelMatrix.makeTranslation(0, -this.boundaries.height / 2 + levelGeometry.height / 2, 0);
 		new Aetion.Level(levelMatrix, levelGeometry, this, this.seed, true);
 		
-		var currentHeight = this.defaultGroundLevelHeight;
+		var currentHeight = this.defaultGroundLevelHeight - 0.5;
 		while (this.boundaries.height >= currentHeight + this.defaultLevelHeight) {
 			var upperLevelGeometry = new THREE.CubeGeometry(this.boundaries.width, this.defaultLevelHeight, this.boundaries.depth);
 			var upperLevelMatrix = new THREE.Matrix4();
-			upperLevelMatrix.makeTranslation(0, -this.boundaries.height / 2 + currentHeight + levelGeometry.height / 2, 0);
+			upperLevelMatrix.makeTranslation(0, currentHeight - this.boundaries.height / 2 + levelGeometry.height / 2, 0);
 			new Aetion.Level(upperLevelMatrix, upperLevelGeometry, this, this.seed);
 			currentHeight += this.defaultLevelHeight;
 		}

@@ -9,13 +9,22 @@ Aetion.Level = function(position, boundaries, parent, seed, isGroundLevel) {
 	this.wallDepth = 0.4;
 	this.isGroundLevel = isGroundLevel;
 	this.levelGeometry = null;
+	//this.defaultMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, wireframe: true});
 
 	this.init = function() {
+		this.sequencer = new Aetion.LevelSequencer(this);
 		if(this.isGroundLevel){
 			var doorGeometry = new THREE.CubeGeometry(this.wallDepth, 2, 1);
 			var doorMatrix = new THREE.Matrix4();
 			doorMatrix.makeTranslation(this.boundaries.width / 2 - doorGeometry.width / 2, -this.boundaries.height / 2 + doorGeometry.height / 2, 0);
 			new Aetion.Door(doorMatrix, doorGeometry, this, this.seed); // Already added to this.children in the parent constructor
+		}
+		if(!this.isGroundLevel){
+			var windows = this.sequencer.getWindowsPositions();
+			for(i in windows){
+				var windowGeometry = new THREE.CubeGeometry(this.wallDepth, this.boundaries.height-1.5, 1);
+				new Aetion.Window(windows[i], windowGeometry, this, this.seed); // Already added to this.children in the parent constructor
+			}
 		}
 	};
 
@@ -36,8 +45,7 @@ Aetion.Level = function(position, boundaries, parent, seed, isGroundLevel) {
 		if(this.levelGeometry){
 			return this.levelGeometry;
 		}
-		var sequencer = new Aetion.LevelSequencer(this);
-		return this.levelGeometry = sequencer.generateGeometry();
+		return this.levelGeometry = this.sequencer.getGeometry();
 	};
 	
 	this.setGroundLevel = function(bool) {

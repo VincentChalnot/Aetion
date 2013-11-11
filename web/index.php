@@ -103,26 +103,20 @@
 				scene = new THREE.Scene();
 				scene.fog = new THREE.Fog(0x000000, 0, 500);
 
-				var ambient = new THREE.AmbientLight(0x333330);
+				var ambient = new THREE.AmbientLight(0x111110);
 				scene.add(ambient);
 
 				light = new THREE.SpotLight(0xffffee);
-				light.position.set(30, 20, 30);
+				light.position.set(15, 20, 15);
 				light.target.position.set(0, 0, 0);
-				if (true) {
-					light.castShadow = true;
-
-					light.shadowCameraNear = 20;
-					light.shadowCameraFar = 50;//camera.far;
-					light.shadowCameraFov = 40;
-
-					light.shadowMapBias = 0.1;
-					light.shadowMapDarkness = 0.7;
-					light.shadowMapWidth = 2 * 512;
-					light.shadowMapHeight = 2 * 512;
-
-					//light.shadowCameraVisible = true;
-				}
+				light.castShadow = true;
+				light.shadowCameraNear = 20;
+				light.shadowCameraFar = 50;//camera.far;
+				light.shadowCameraFov = 40;
+				light.shadowMapBias = 0.1;
+				light.shadowMapDarkness = 0.7;
+				light.shadowMapWidth = 2 * 512;
+				light.shadowMapHeight = 2 * 512;
 				scene.add(light);
 
 				controls = new PointerLockControls(camera, playerBody);
@@ -149,9 +143,8 @@
 
 				window.addEventListener('resize', onWindowResize, false);
 
-				var buildingMatrix = new THREE.Matrix4();
-				buildingMatrix.makeTranslation(0, 50, 0);
-				var building = new Aetion.Building(buildingMatrix, new THREE.CubeGeometry(15, 100, 20));
+				var buildingGeometry = new THREE.CubeGeometry(15, 50, 20);
+				var building = new Aetion.Building(new THREE.Matrix4().makeTranslation(0, buildingGeometry.height / 2, 0), buildingGeometry, null, "aadb3fce-9001-40bf-a6c0-3815077e2000");
 				var buildingMesh = building.getMesh();
 				scene.add(buildingMesh);
 			}
