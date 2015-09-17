@@ -107,7 +107,7 @@
 				scene.add(ambient);
 
 				light = new THREE.SpotLight(0xffffee);
-				light.position.set(15, 20, 15);
+				light.position.set(15, 20, 30);
 				light.target.position.set(0, 0, 0);
 				light.castShadow = true;
 				light.shadowCameraNear = 20;
@@ -143,8 +143,8 @@
 
 				window.addEventListener('resize', onWindowResize, false);
 
-				var buildingGeometry = new THREE.CubeGeometry(15, 50, 20);
-				var building = new Aetion.Building(new THREE.Matrix4().makeTranslation(0, buildingGeometry.height / 2, 0), buildingGeometry, null, "aadb3fce-9001-40bf-a6c0-3815077e2000");
+				var buildingGeometry = new THREE.CubeGeometry(20, 30, 30);
+				var building = new Aetion.Building(new THREE.Matrix4().makeTranslation(0, buildingGeometry.height / 2, 0), buildingGeometry, null);//, "aadb3fce-9001-40bf-a6c0-3815077e2000");
 				var buildingMesh = building.getMesh();
 				scene.add(buildingMesh);
 			}
@@ -180,10 +180,10 @@
 
 			}
 
-			var ballShape = new CANNON.Sphere(0.1);
+			var ballShape = new CANNON.Sphere(1);
 			var ballGeometry = new THREE.SphereGeometry(ballShape.radius);
 			var shootDirection = new THREE.Vector3();
-			var shootVelo = 60;
+			var shootVelo = 5;
 			var projector = new THREE.Projector();
 			function getShootDir(targetVec) {
 				var vector = targetVec;

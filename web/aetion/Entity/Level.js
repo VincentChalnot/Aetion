@@ -9,7 +9,7 @@ Aetion.Level = function(position, boundaries, parent, seed, isGroundLevel) {
 	this.wallDepth = 0.4;
 	this.isGroundLevel = isGroundLevel;
 	this.levelGeometry = null;
-	//this.defaultMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, wireframe: true});
+	this.defaultMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
 
 	this.init = function() {
 		this.sequencer = new Aetion.LevelSequencer(this);
